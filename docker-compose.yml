@@ -1,0 +1,368 @@
+version: '3.8'
+
+services:
+  # ===========================================
+  # INFRAESTRUCTURA BASE
+  # ===========================================
+  
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.4.0
+    hostname: zookeeper
+    container_name: streamforge-zookeeper
+    ports:
+      - "2181:2181"
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    volumes:
+      - zookeeper-data:/var/lib/zookeeper/data
+      - zookeeper-logs:/var/lib/zookeeper/log
+    networks:
+      - streamforge-network
+
+  kafka:
+    image: confluentinc/cp-kafka:7.4.0
+    hostname: kafka
+    container_name: streamforge-kafka
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"
+      - "9101:9101"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_JMX_PORT: 9101
+      KAFKA_JMX_HOSTNAME: localhost
+    volumes:
+      - kafka-data:/var/lib/kafka/data
+    networks:
+      - streamforge-network
+
+  # ===========================================
+  # BASE DE DATOS
+  # ===========================================
+  
+  postgres:
+    image: postgres:15-alpine
+    hostname: postgres
+    container_name: streamforge-postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: streamforge
+      POSTGRES_USER: streamforge
+      POSTGRES_PASSWORD: streamforge123
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./scripts/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
+    networks:
+      - streamforge-network
+
+  redis:
+    image: redis:7-alpine
+    hostname: redis
+    container_name: streamforge-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - streamforge-network
+
+  # ===========================================
+  # OBSERVABILIDAD
+  # ===========================================
+  
+  prometheus:
+    image: prom/prometheus:latest
+    hostname: prometheus
+    container_name: streamforge-prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus-data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention.time=200h'
+      - '--web.enable-lifecycle'
+    networks:
+      - streamforge-network
+
+  grafana:
+    image: grafana/grafana:latest
+    hostname: grafana
+    container_name: streamforge-grafana
+    ports:
+      - "3000:3000"
+    environment:
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: admin123
+      GF_USERS_ALLOW_SIGN_UP: false
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./monitoring/grafana/provisioning:/etc/grafana/provisioning
+      - ./monitoring/grafana/dashboards:/var/lib/grafana/dashboards
+    networks:
+      - streamforge-network
+
+  jaeger:
+    image: jaegertracing/all-in-one:latest
+    hostname: jaeger
+    container_name: streamforge-jaeger
+    ports:
+      - "16686:16686"
+      - "14268:14268"
+    environment:
+      COLLECTOR_OTLP_ENABLED: true
+    networks:
+      - streamforge-network
+
+  # ===========================================
+  # PROYECTOS EXISTENTES
+  # ===========================================
+  
+  event-bridge-kafka:
+    build:
+      context: ./projects/event-bridge-kafka
+      dockerfile: Dockerfile
+    hostname: event-bridge-kafka
+    container_name: streamforge-event-bridge-kafka
+    ports:
+      - "3001:3000"
+    environment:
+      KAFKA_BROKERS: kafka:29092
+      KAFKA_TOPIC_EVENTS: blockchain-events
+      PROMETHEUS_PORT: 9091
+    depends_on:
+      - kafka
+      - postgres
+    networks:
+      - streamforge-network
+
+  stream-anomaly-detector:
+    build:
+      context: ./projects/stream-anomaly-detector
+      dockerfile: Dockerfile
+    hostname: stream-anomaly-detector
+    container_name: streamforge-stream-anomaly-detector
+    ports:
+      - "8001:8000"
+    environment:
+      KAFKA_BROKERS: kafka:29092
+      KAFKA_TOPIC_INPUT: blockchain-events
+      KAFKA_TOPIC_OUTPUT: anomaly-alerts
+      MODEL_PATH: /app/models
+    depends_on:
+      - kafka
+    volumes:
+      - ./projects/stream-anomaly-detector/models:/app/models
+    networks:
+      - streamforge-network
+
+  stream-analytics-hub:
+    build:
+      context: ./projects/stream-analytics-hub
+      dockerfile: Dockerfile
+    hostname: stream-analytics-hub
+    container_name: streamforge-stream-analytics-hub
+    ports:
+      - "8081:8080"
+    environment:
+      KAFKA_BROKERS: kafka:29092
+      KSQLDB_SERVER: http://ksqldb:8088
+    depends_on:
+      - kafka
+    networks:
+      - streamforge-network
+
+  kafka-metrics-portal:
+    build:
+      context: ./projects/kafka-metrics-portal
+      dockerfile: Dockerfile
+    hostname: kafka-metrics-portal
+    container_name: streamforge-kafka-metrics-portal
+    ports:
+      - "3002:3000"
+    environment:
+      GRAFANA_URL: http://grafana:3000
+      PROMETHEUS_URL: http://prometheus:9090
+    depends_on:
+      - grafana
+      - prometheus
+    networks:
+      - streamforge-network
+
+  log-replay-simulator:
+    build:
+      context: ./projects/log-replay-simulator
+      dockerfile: Dockerfile
+    hostname: log-replay-simulator
+    container_name: streamforge-log-replay-simulator
+    ports:
+      - "5001:5000"
+    environment:
+      KAFKA_BROKERS: kafka:29092
+      KAFKA_TOPIC_EVENTS: blockchain-events
+    depends_on:
+      - kafka
+    networks:
+      - streamforge-network
+
+  # ===========================================
+  # PROYECTOS NUEVOS
+  # ===========================================
+  
+  distributed-tracing-system:
+    build:
+      context: ./projects/distributed-tracing-system
+      dockerfile: Dockerfile
+    hostname: distributed-tracing-system
+    container_name: streamforge-distributed-tracing-system
+    ports:
+      - "8082:8080"
+    environment:
+      JAEGER_AGENT_HOST: jaeger
+      JAEGER_AGENT_PORT: 14268
+      KAFKA_BROKERS: kafka:29092
+    depends_on:
+      - jaeger
+      - kafka
+    networks:
+      - streamforge-network
+
+  intelligent-alert-manager:
+    build:
+      context: ./projects/intelligent-alert-manager
+      dockerfile: Dockerfile
+    hostname: intelligent-alert-manager
+    container_name: streamforge-intelligent-alert-manager
+    ports:
+      - "8002:8000"
+    environment:
+      REDIS_URL: redis://redis:6379
+      KAFKA_BROKERS: kafka:29092
+      PROMETHEUS_URL: http://prometheus:9090
+    depends_on:
+      - redis
+      - kafka
+      - prometheus
+    networks:
+      - streamforge-network
+
+  real-time-dashboard-builder:
+    build:
+      context: ./projects/real-time-dashboard-builder
+      dockerfile: Dockerfile
+    hostname: real-time-dashboard-builder
+    container_name: streamforge-real-time-dashboard-builder
+    ports:
+      - "4200:4200"
+    environment:
+      KAFKA_BROKERS: kafka:29092
+      GRAFANA_URL: http://grafana:3000
+    depends_on:
+      - kafka
+      - grafana
+    networks:
+      - streamforge-network
+
+  stream-data-validator:
+    build:
+      context: ./projects/stream-data-validator
+      dockerfile: Dockerfile
+    hostname: stream-data-validator
+    container_name: streamforge-stream-data-validator
+    ports:
+      - "8083:8080"
+    environment:
+      KAFKA_BROKERS: kafka:29092
+      KAFKA_TOPIC_INPUT: blockchain-events
+      KAFKA_TOPIC_VALID: validated-events
+      KAFKA_TOPIC_INVALID: invalid-events
+    depends_on:
+      - kafka
+    networks:
+      - streamforge-network
+
+  multi-tenant-isolation-engine:
+    build:
+      context: ./projects/multi-tenant-isolation-engine
+      dockerfile: Dockerfile
+    hostname: multi-tenant-isolation-engine
+    container_name: streamforge-multi-tenant-isolation-engine
+    ports:
+      - "8084:8080"
+    environment:
+      VAULT_ADDR: http://vault:8200
+      KAFKA_BROKERS: kafka:29092
+    depends_on:
+      - kafka
+    networks:
+      - streamforge-network
+
+  # ===========================================
+  # SERVICIOS ADICIONALES
+  # ===========================================
+  
+  ksqldb:
+    image: confluentinc/cp-ksqldb-server:7.4.0
+    hostname: ksqldb
+    container_name: streamforge-ksqldb
+    ports:
+      - "8088:8088"
+    environment:
+      KSQL_CONFIG_DIR: "/etc/ksql"
+      KSQL_BOOTSTRAP_SERVERS: "kafka:29092"
+      KSQL_HOST_NAME: ksqldb
+      KSQL_LISTENERS: "http://0.0.0.0:8088"
+      KSQL_CACHE_MAX_BYTES_BUFFERING: 0
+      KSQL_KSQL_SCHEMA_REGISTRY_URL: "http://schema-registry:8081"
+    depends_on:
+      - kafka
+    networks:
+      - streamforge-network
+
+  schema-registry:
+    image: confluentinc/cp-schema-registry:7.4.0
+    hostname: schema-registry
+    container_name: streamforge-schema-registry
+    ports:
+      - "8081:8081"
+    environment:
+      SCHEMA_REGISTRY_HOST_NAME: schema-registry
+      SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: 'kafka:29092'
+    depends_on:
+      - kafka
+    networks:
+      - streamforge-network
+
+# ===========================================
+# VOLUMENES
+# ===========================================
+
+volumes:
+  zookeeper-data:
+  zookeeper-logs:
+  kafka-data:
+  postgres-data:
+  redis-data:
+  prometheus-data:
+  grafana-data:
+
+# ===========================================
+# REDES
+# ===========================================
+
+networks:
+  streamforge-network:
+    driver: bridge
