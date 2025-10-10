@@ -28,30 +28,30 @@
 - [🤝 Contributing](#-contributing)
 - [📄 License](#-license)
 
-## 🎯 Características
+## 🎯 Features
 
-### ✨ **Funcionalidades Principales**
-- 🔄 **Procesamiento de Streams en Tiempo Real** - Kafka + KSQLDB + Flink
-- 🤖 **Machine Learning Integrado** - Detección de anomalías con TensorFlow
-- 📊 **Dashboards Interactivos** - Constructor drag-and-drop con Angular
-- 🔍 **Trazabilidad Distribuida** - OpenTelemetry + Jaeger
-- 🚨 **Alertas Inteligentes** - ML para reducir alert fatigue
-- 🏢 **Multi-tenant** - Aislamiento completo entre tenants
-- 📈 **Observabilidad Completa** - Prometheus + Grafana + Jaeger
+### ✨ **Core Capabilities**
+- 🔄 **Real-time Stream Processing** - Kafka + KSQLDB + Flink
+- 🤖 **Integrated Machine Learning** - Anomaly detection with TensorFlow
+- 📊 **Interactive Dashboards** - Drag-and-drop builder with Angular
+- 🔍 **Distributed Tracing** - OpenTelemetry + Jaeger
+- 🚨 **Intelligent Alerting** - ML to reduce alert fatigue
+- 🏢 **Multi-tenant** - Complete isolation between tenants
+- 📈 **Full Observability** - Prometheus + Grafana + Jaeger
 
-### 🎨 **Interfaz de Usuario**
-- **Dashboard Builder** - Constructor visual sin código
-- **Métricas en Tiempo Real** - WebSocket + Server-Sent Events
-- **Exportación** - PDF, PNG, JSON
-- **Templates** - Predefinidos para diferentes casos de uso
+### 🎨 **User Interface**
+- **Dashboard Builder** - Visual no-code constructor
+- **Real-time Metrics** - WebSocket + Server-Sent Events
+- **Export Capabilities** - PDF, PNG, JSON
+- **Templates** - Predefined for different use cases
 
-### 🔧 **DevOps & Infraestructura**
-- **Docker Compose** - Desarrollo local completo
-- **Kubernetes** - Despliegue en producción
-- **CI/CD** - GitHub Actions integrado
+### 🔧 **DevOps & Infrastructure**
+- **Docker Compose** - Complete local development
+- **Kubernetes** - Production deployment
+- **CI/CD** - Integrated GitHub Actions
 - **Monitoring** - Prometheus + Grafana + Jaeger
 
-## 🏗️ Arquitectura
+## 🏗️ Architecture
 
 ```mermaid
 graph TB
@@ -101,100 +101,100 @@ graph TB
     L --> K
 ```
 
-## 📊 Proyectos
+## 📊 Projects
 
-### 🏗️ **Proyectos Base (5 existentes)**
+### 🏗️ **Core Projects**
 
-| # | Proyecto | Descripción | Stack | Estado |
-|---|----------|-------------|-------|--------|
-| 1️⃣ | **[event-bridge-kafka](./projects/event-bridge-kafka/)** | Gateway de eventos blockchain/IA | NestJS • KafkaJS • Docker | ✅ |
-| 2️⃣ | **[stream-anomaly-detector](./projects/stream-anomaly-detector/)** | ML en tiempo real | FastAPI • TensorFlow • Kafka | ✅ |
-| 3️⃣ | **[stream-analytics-hub](./projects/stream-analytics-hub/)** | KSQLDB + Flink | KSQLDB • Flink • Prometheus | ✅ |
-| 4️⃣ | **[kafka-metrics-portal](./projects/kafka-metrics-portal/)** | UI de métricas | React • NestJS • Grafana | ✅ |
-| 5️⃣ | **[log-replay-simulator](./projects/log-replay-simulator/)** | Simulador de tráfico | Python • Kafka • Docker | ✅ |
+| # | Project | Description | Stack | Status |
+|---|---------|-------------|-------|--------|
+| 1️⃣ | **[event-bridge-kafka](./projects/event-bridge-kafka/)** | Blockchain/AI events gateway | NestJS • KafkaJS • Docker | ✅ |
+| 2️⃣ | **[stream-anomaly-detector](./projects/stream-anomaly-detector/)** | Real-time ML detection | FastAPI • TensorFlow • Kafka | ✅ |
+| 3️⃣ | **[stream-analytics-hub](./projects/stream-analytics-hub/)** | KSQLDB + Flink analytics | KSQLDB • Flink • Prometheus | ✅ |
+| 4️⃣ | **[kafka-metrics-portal](./projects/kafka-metrics-portal/)** | Metrics UI portal | React • NestJS • Grafana | ✅ |
+| 5️⃣ | **[log-replay-simulator](./projects/log-replay-simulator/)** | Traffic simulator | Python • Kafka • Docker | ✅ |
 
-### 🆕 **Proyectos Nuevos (5 propuestos)**
+### 🆕 **Advanced Projects**
 
-| # | Proyecto | Descripción | Stack | Estado |
-|---|----------|-------------|-------|--------|
-| 6️⃣ | **[distributed-tracing-system](./projects/distributed-tracing-system/)** | Trazabilidad distribuida | Go • OpenTelemetry • Jaeger | 🚧 |
-| 7️⃣ | **[intelligent-alert-manager](./projects/intelligent-alert-manager/)** | Alertas inteligentes | Python • TensorFlow • Redis | 🚧 |
-| 8️⃣ | **[real-time-dashboard-builder](./projects/real-time-dashboard-builder/)** | Constructor de dashboards | Angular • D3.js • WebSocket | 🚧 |
-| 9️⃣ | **[stream-data-validator](./projects/stream-data-validator/)** | Validador de datos | Go • Avro • Kafka | 🚧 |
-| 🔟 | **[multi-tenant-isolation-engine](./projects/multi-tenant-isolation-engine/)** | Aislamiento multi-tenant | Go • K8s • Istio • Vault | 🚧 |
+| # | Project | Description | Stack | Status |
+|---|---------|-------------|-------|--------|
+| 6️⃣ | **[distributed-tracing-system](./projects/distributed-tracing-system/)** | Distributed tracing | Go • OpenTelemetry • Jaeger | 🚧 |
+| 7️⃣ | **[intelligent-alert-manager](./projects/intelligent-alert-manager/)** | Intelligent alerting | Python • TensorFlow • Redis | 🚧 |
+| 8️⃣ | **[real-time-dashboard-builder](./projects/real-time-dashboard-builder/)** | Dashboard builder | Angular • D3.js • WebSocket | 🚧 |
+| 9️⃣ | **[stream-data-validator](./projects/stream-data-validator/)** | Data validator | Go • Avro • Kafka | 🚧 |
+| 🔟 | **[multi-tenant-isolation-engine](./projects/multi-tenant-isolation-engine/)** | Multi-tenant isolation | Go • K8s • Istio • Vault | 🚧 |
 
-## 🚀 Inicio Rápido
+## 🚀 Quick Start
 
-### 📋 **Prerrequisitos**
+### 📋 **Prerequisites**
 - Docker & Docker Compose
 - Git
-- Make (opcional)
+- Make (optional)
 
-### 🔧 **Instalación**
+### 🔧 **Installation**
 
 ```bash
-# 1. Clonar el repositorio
+# 1. Clone the repository
 git clone https://github.com/Franklin-Osede/stream-forge.git
 cd stream-forge
 
-# 2. Levantar todo el ecosistema
+# 2. Start the entire ecosystem
 make up
 
-# 3. Verificar estado
+# 3. Check status
 make status
 
-# 4. Ver logs
+# 4. View logs
 make logs
 ```
 
-### 🌐 **Acceso a Servicios**
+### 🌐 **Service Access**
 
-| Servicio | URL | Descripción |
-|----------|-----|-------------|
-| **Grafana** | http://localhost:3000 | Dashboards y visualizaciones |
-| **Prometheus** | http://localhost:9090 | Métricas y alertas |
-| **Jaeger** | http://localhost:16686 | Trazabilidad distribuida |
-| **Kafka UI** | http://localhost:8080 | Gestión de Kafka |
+| Service | URL | Description |
+|---------|-----|-------------|
+| **Grafana** | http://localhost:3000 | Dashboards and visualizations |
+| **Prometheus** | http://localhost:9090 | Metrics and alerts |
+| **Jaeger** | http://localhost:16686 | Distributed tracing |
+| **Kafka UI** | http://localhost:8080 | Kafka management |
 
-### 🛠️ **Comandos Útiles**
+### 🛠️ **Useful Commands**
 
 ```bash
-# Ver ayuda
+# Show help
 make help
 
-# Levantar servicios específicos
+# Start specific services
 make up-project PROJECT=event-bridge-kafka
 
-# Ver logs de un proyecto
+# View logs for a project
 make logs-project PROJECT=event-bridge-kafka
 
-# Parar todo
+# Stop everything
 make down
 
-# Limpiar completamente
+# Clean completely
 make clean
 
-# Ejecutar tests
+# Run tests
 make test
 
-# Formatear código
+# Format code
 make format
 ```
 
-## 🛠️ Stack Tecnológico
+## 🛠️ Technology Stack
 
 ### 🔧 **Backend**
 ```yaml
-Lenguajes:
+Languages:
   - Go: distributed-tracing-system, stream-data-validator, multi-tenant-isolation-engine
   - Python: stream-anomaly-detector, intelligent-alert-manager
   - Node.js: event-bridge-kafka, kafka-metrics-portal
   - Java: stream-analytics-hub
 
 Frameworks:
-  - NestJS: APIs REST y microservicios
-  - FastAPI: APIs de alta performance
-  - Spring Boot: Aplicaciones empresariales
+  - NestJS: REST APIs and microservices
+  - FastAPI: High-performance APIs
+  - Spring Boot: Enterprise applications
 ```
 
 ### 🎨 **Frontend**
@@ -205,135 +205,135 @@ Charts: D3.js • Chart.js • ngx-charts
 Real-time: WebSocket • Server-Sent Events
 ```
 
-### 🏗️ **Infraestructura**
+### 🏗️ **Infrastructure**
 ```yaml
-Orquestación: Docker • Kubernetes • Istio
+Orchestration: Docker • Kubernetes • Istio
 Streaming: Apache Kafka • KSQLDB • Apache Flink
-Observabilidad: Prometheus • Grafana • Jaeger
-Seguridad: Vault • JWT • OAuth2
+Observability: Prometheus • Grafana • Jaeger
+Security: Vault • JWT • OAuth2
 ```
 
 ### 🤖 **Machine Learning**
 ```yaml
 Frameworks: TensorFlow • Scikit-learn
-Modelos: Isolation Forest • LSTM • Autoencoder
+Models: Isolation Forest • LSTM • Autoencoder
 Deployment: TensorFlow Lite • ONNX
 ```
 
 ## 📈 Roadmap
 
-### 🎯 **Fase 1: Base (2-3 meses)**
+### 🎯 **Phase 1: Foundation (2-3 months)**
 - [x] event-bridge-kafka
 - [x] log-replay-simulator  
 - [ ] distributed-tracing-system
 
-### 🎯 **Fase 2: Core Analytics (2-3 meses)**
+### 🎯 **Phase 2: Core Analytics (2-3 months)**
 - [x] stream-analytics-hub
 - [ ] stream-data-validator
 - [x] kafka-metrics-portal
 
-### 🎯 **Fase 3: Intelligence (2-3 meses)**
+### 🎯 **Phase 3: Intelligence (2-3 months)**
 - [x] stream-anomaly-detector
 - [ ] intelligent-alert-manager
 
-### 🎯 **Fase 4: User Experience (2-3 meses)**
+### 🎯 **Phase 4: User Experience (2-3 months)**
 - [ ] real-time-dashboard-builder
 
-### 🎯 **Fase 5: Enterprise (2-3 meses)**
+### 🎯 **Phase 5: Enterprise (2-3 months)**
 - [ ] multi-tenant-isolation-engine
 
-## 📚 Documentación
+## 📚 Documentation
 
-### 📖 **Guías Principales**
-- [🚀 Guía de Desarrollo](./docs/development.md) - Configuración del entorno
-- [🏗️ Arquitectura](./docs/architecture.md) - Diseño del sistema
-- [🚀 Deployment](./docs/deployment.md) - Guía de despliegue
-- [📊 API Reference](./docs/api-reference.md) - Documentación de APIs
+### 📖 **Main Guides**
+- [🚀 Development Guide](./docs/development.md) - Environment setup
+- [🏗️ Architecture](./docs/architecture.md) - System design
+- [🚀 Deployment](./docs/deployment.md) - Deployment guide
+- [📊 API Reference](./docs/api-reference.md) - API documentation
 
-### 🔧 **Configuración**
-- [⚙️ Variables de Entorno](./docs/environment-variables.md)
+### 🔧 **Configuration**
+- [⚙️ Environment Variables](./docs/environment-variables.md)
 - [🐳 Docker](./docs/docker.md)
 - [☸️ Kubernetes](./docs/kubernetes.md)
-- [📊 Monitoreo](./docs/monitoring.md)
+- [📊 Monitoring](./docs/monitoring.md)
 
-### 🎯 **Casos de Uso**
+### 🎯 **Use Cases**
 - [₿ Blockchain Analytics](./docs/use-cases/blockchain-analytics.md)
 - [🌐 IoT Monitoring](./docs/use-cases/iot-monitoring.md)
 - [🤖 ML Model Monitoring](./docs/use-cases/ml-monitoring.md)
 - [🏦 Financial Services](./docs/use-cases/financial-services.md)
 
-## 🤝 Contribuir
+## 🤝 Contributing
 
-¡Las contribuciones son bienvenidas! Por favor, lee nuestra [Guía de Contribución](./docs/contributing.md) para más detalles.
+Contributions are welcome! Please read our [Contributing Guide](./docs/contributing.md) for more details.
 
-### 🚀 **Proceso de Contribución**
+### 🚀 **Contribution Process**
 
-1. **Fork** el proyecto
-2. **Crea** tu feature branch (`git checkout -b feature/AmazingFeature`)
-3. **Commit** tus cambios (`git commit -m 'Add some AmazingFeature'`)
-4. **Push** a la branch (`git push origin feature/AmazingFeature`)
-5. **Abre** un Pull Request
+1. **Fork** the project
+2. **Create** your feature branch (`git checkout -b feature/AmazingFeature`)
+3. **Commit** your changes (`git commit -m 'Add some AmazingFeature'`)
+4. **Push** to the branch (`git push origin feature/AmazingFeature`)
+5. **Open** a Pull Request
 
-### 🐛 **Reportar Issues**
+### 🐛 **Report Issues**
 
-Si encuentras un bug o tienes una sugerencia, por favor [abre un issue](https://github.com/Franklin-Osede/stream-forge/issues).
+If you find a bug or have a suggestion, please [open an issue](https://github.com/Franklin-Osede/stream-forge/issues).
 
-### 💡 **Ideas y Sugerencias**
+### 💡 **Ideas and Suggestions**
 
-¿Tienes una idea genial? ¡Nos encantaría escucharla! Abre un [discussion](https://github.com/Franklin-Osede/stream-forge/discussions).
+Have a great idea? We'd love to hear it! Open a [discussion](https://github.com/Franklin-Osede/stream-forge/discussions).
 
-## 📊 Estadísticas del Proyecto
+## 📊 Project Statistics
 
 ![GitHub stars](https://img.shields.io/github/stars/Franklin-Osede/stream-forge?style=social)
 ![GitHub forks](https://img.shields.io/github/forks/Franklin-Osede/stream-forge?style=social)
 ![GitHub issues](https://img.shields.io/github/issues/Franklin-Osede/stream-forge)
 ![GitHub pull requests](https://img.shields.io/github/issues-pr/Franklin-Osede/stream-forge)
 
-## 🏆 Casos de Uso
+## 🏆 Use Cases
 
 ### 🏦 **Fintech**
-- Monitoreo de transacciones en tiempo real
-- Detección de fraudes con ML
-- Análisis de riesgo crediticio
+- Real-time transaction monitoring
+- ML-powered fraud detection
+- Credit risk analysis
 
 ### 🌐 **IoT**
-- Agregación de datos de sensores
-- Detección de anomalías en dispositivos
-- Optimización de eficiencia energética
+- Sensor data aggregation
+- Device anomaly detection
+- Energy efficiency optimization
 
 ### 🤖 **AI/ML**
-- Monitoreo de modelos en producción
-- Detección de drift de datos
-- Optimización de performance
+- Production model monitoring
+- Data drift detection
+- Performance optimization
 
 ### 🎮 **Gaming**
-- Análisis de comportamiento de jugadores
-- Detección de bots y cheats
-- Optimización de matchmaking
+- Player behavior analysis
+- Bot and cheat detection
+- Matchmaking optimization
 
-## 📄 Licencia
+## 📄 License
 
-Este proyecto está bajo la Licencia MIT. Ver el archivo [LICENSE](LICENSE) para más detalles.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
 
-## 🆘 Soporte
+## 🆘 Support
 
-### 📞 **Canales de Soporte**
+### 📞 **Support Channels**
 - 📧 **Email**: support@streamforge.dev
 - 💬 **Discord**: [StreamForge Community](https://discord.gg/streamforge)
-- 📖 **Wiki**: [Documentación Completa](https://wiki.streamforge.dev)
+- 📖 **Wiki**: [Complete Documentation](https://wiki.streamforge.dev)
 - 🐛 **Issues**: [GitHub Issues](https://github.com/Franklin-Osede/stream-forge/issues)
 
-### 🤝 **Comunidad**
-- [Discussions](https://github.com/Franklin-Osede/stream-forge/discussions) - Preguntas y debates
-- [Wiki](https://github.com/Franklin-Osede/stream-forge/wiki) - Documentación colaborativa
-- [Releases](https://github.com/Franklin-Osede/stream-forge/releases) - Notas de versiones
+### 🤝 **Community**
+- [Discussions](https://github.com/Franklin-Osede/stream-forge/discussions) - Questions and debates
+- [Wiki](https://github.com/Franklin-Osede/stream-forge/wiki) - Collaborative documentation
+- [Releases](https://github.com/Franklin-Osede/stream-forge/releases) - Release notes
 
 ---
 
 <div align="center">
 
-**Hecho con ❤️ por el equipo StreamForge**
+**Made with ❤️ by the StreamForge team**
 
-[⭐ Star este proyecto](https://github.com/Franklin-Osede/stream-forge) • [🐛 Reportar bug](https://github.com/Franklin-Osede/stream-forge/issues) • [💡 Sugerir feature](https://github.com/Franklin-Osede/stream-forge/discussions)
+[⭐ Star this project](https://github.com/Franklin-Osede/stream-forge) • [🐛 Report bug](https://github.com/Franklin-Osede/stream-forge/issues) • [💡 Suggest feature](https://github.com/Franklin-Osede/stream-forge/discussions)
 
 </div>
