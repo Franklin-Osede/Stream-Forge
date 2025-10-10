@@ -2,7 +2,7 @@
 
 # 🚀 StreamForge
 
-**Ecosistema completo de microservicios para procesamiento de streams, análisis de datos en tiempo real y observabilidad empresarial**
+**Complete microservices ecosystem for stream processing, real-time data analytics, and enterprise observability**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Docker](https://img.shields.io/badge/Docker-Ready-blue.svg)](https://www.docker.com/)
@@ -10,23 +10,23 @@
 [![Prometheus](https://img.shields.io/badge/Monitoring-Prometheus-red.svg)](https://prometheus.io/)
 [![Grafana](https://img.shields.io/badge/Dashboard-Grafana-orange.svg)](https://grafana.com/)
 
-[📖 Documentación](#-documentación) • [🚀 Inicio Rápido](#-inicio-rápido) • [🏗️ Arquitectura](#️-arquitectura) • [📊 Proyectos](#-proyectos) • [🤝 Contribuir](#-contribuir)
+[📖 Documentation](#-documentation) • [🚀 Quick Start](#-quick-start) • [🏗️ Architecture](#️-architecture) • [📊 Projects](#-projects) • [🤝 Contributing](#-contributing)
 
 </div>
 
 ---
 
-## 📋 Tabla de Contenidos
+## 📋 Table of Contents
 
-- [🎯 Características](#-características)
-- [🏗️ Arquitectura](#️-arquitectura)
-- [📊 Proyectos](#-proyectos)
-- [🚀 Inicio Rápido](#-inicio-rápido)
-- [🛠️ Stack Tecnológico](#️-stack-tecnológico)
+- [🎯 Features](#-features)
+- [🏗️ Architecture](#️-architecture)
+- [📊 Projects](#-projects)
+- [🚀 Quick Start](#-quick-start)
+- [🛠️ Technology Stack](#️-technology-stack)
 - [📈 Roadmap](#-roadmap)
-- [📚 Documentación](#-documentación)
-- [🤝 Contribuir](#-contribuir)
-- [📄 Licencia](#-licencia)
+- [📚 Documentation](#-documentation)
+- [🤝 Contributing](#-contributing)
+- [📄 License](#-license)
 
 ## 🎯 Características
 
