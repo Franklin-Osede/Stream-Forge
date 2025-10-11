@@ -1,0 +1,8 @@
+# Air ignore file
+tmp/
+vendor/
+*.log
+coverage.out
+coverage.html
+bin/
+

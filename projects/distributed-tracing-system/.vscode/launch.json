@@ -1,0 +1,23 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Launch Distributed Tracing System",
+      "type": "go",
+      "request": "launch",
+      "mode": "auto",
+      "program": "${workspaceFolder}/cmd/server",
+      "env": {
+        "SERVER_PORT": "8080",
+        "JAEGER_ENDPOINT": "http://localhost:14268/api/traces",
+        "KAFKA_BROKERS": "localhost:9092",
+        "KAFKA_TOPIC_TRACES": "trace-events",
+        "KAFKA_GROUP_ID": "tracing-system",
+        "PROMETHEUS_PORT": "9091",
+        "PROMETHEUS_PATH": "/metrics",
+        "LOG_LEVEL": "debug"
+      }
+    }
+  ]
+}
+
