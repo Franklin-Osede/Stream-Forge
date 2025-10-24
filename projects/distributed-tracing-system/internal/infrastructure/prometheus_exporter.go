@@ -149,6 +149,9 @@ func (pe *prometheusExporter) RecordTraceMetrics(trace *domain.Trace) error {
 
 // validateTrace validates a trace before recording metrics
 func (pe *prometheusExporter) validateTrace(trace *domain.Trace) error {
+	if trace.ID == "" {
+		return fmt.Errorf("trace ID is required")
+	}
 	if trace.Service == "" {
 		return fmt.Errorf("service name is required")
 	}

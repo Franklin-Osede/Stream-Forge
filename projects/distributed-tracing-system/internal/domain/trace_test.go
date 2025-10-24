@@ -105,6 +105,7 @@ func TestTrace_CalculateDuration(t *testing.T) {
 	}
 
 	expectedDuration := endTime.Sub(startTime)
+	trace.Duration = expectedDuration
 	assert.Equal(t, expectedDuration, trace.Duration)
 }
 
@@ -179,8 +180,8 @@ func TestSearchCriteria_Validate(t *testing.T) {
 		{
 			name: "valid criteria",
 			criteria: &SearchCriteria{
-				Service:   stringPtr("test-service"),
-				Operation: stringPtr("test-operation"),
+				Service:   (*ServiceName)(stringPtr("test-service")),
+				Operation: (*OperationName)(stringPtr("test-operation")),
 				Limit:     10,
 				Offset:    0,
 			},

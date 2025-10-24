@@ -9,15 +9,14 @@ import (
 	"github.com/streamforge/distributed-tracing-system/internal/domain"
 	"github.com/streamforge/distributed-tracing-system/internal/infrastructure"
 	"github.com/stretchr/testify/assert"
-	"github.com/stretchr/testify/require"
 )
 
 // IntegrationTestSuite provides a test suite for integration tests
 type IntegrationTestSuite struct {
-	jaegerExporter    *infrastructure.JaegerExporter
-	prometheusExporter *infrastructure.PrometheusExporter
-	kafkaProducer     *infrastructure.KafkaProducer
-	kafkaConsumer     *infrastructure.KafkaConsumer
+	jaegerExporter    domain.JaegerExporter
+	prometheusExporter domain.PrometheusExporter
+	kafkaProducer     domain.KafkaProducer
+	kafkaConsumer     domain.KafkaConsumer
 }
 
 // SetupIntegrationTest sets up the integration test environment

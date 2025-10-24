@@ -1,6 +1,7 @@
 package config
 
 import (
+	"fmt"
 	"os"
 	"strconv"
 	"time"
@@ -9,6 +10,7 @@ import (
 // Config holds all configuration for the application
 type Config struct {
 	Server   ServerConfig
+	Database DatabaseConfig
 	Jaeger   JaegerConfig
 	Kafka    KafkaConfig
 	Prometheus PrometheusConfig
@@ -21,6 +23,18 @@ type ServerConfig struct {
 	ReadTimeout  time.Duration
 	WriteTimeout time.Duration
 	IdleTimeout  time.Duration
+}
+
+// DatabaseConfig holds database configuration
+type DatabaseConfig struct {
+	Host     string
+	Port     int
+	User     string
+	Password string
+	DBName   string
+	SSLMode  string
+	MaxConns int
+	MinConns int
 }
 
 // JaegerConfig holds Jaeger configuration
@@ -58,6 +72,16 @@ func Load() (*Config, error) {
 			ReadTimeout:  getDurationEnv("SERVER_READ_TIMEOUT", 30*time.Second),
 			WriteTimeout: getDurationEnv("SERVER_WRITE_TIMEOUT", 30*time.Second),
 			IdleTimeout:  getDurationEnv("SERVER_IDLE_TIMEOUT", 60*time.Second),
+		},
+		Database: DatabaseConfig{
+			Host:     getEnv("DB_HOST", "localhost"),
+			Port:     getIntEnv("DB_PORT", 5432),
+			User:     getEnv("DB_USER", "postgres"),
+			Password: getEnv("DB_PASSWORD", "postgres"),
+			DBName:   getEnv("DB_NAME", "tracing_system"),
+			SSLMode:  getEnv("DB_SSLMODE", "disable"),
+			MaxConns: getIntEnv("DB_MAX_CONNS", 10),
+			MinConns: getIntEnv("DB_MIN_CONNS", 1),
 		},
 		Jaeger: JaegerConfig{
 			Endpoint: getEnv("JAEGER_ENDPOINT", "http://jaeger:14268/api/traces"),
@@ -116,4 +140,10 @@ func getStringSliceEnv(key string, defaultValue []string) []string {
 		return []string{value}
 	}
 	return defaultValue
+}
+
+// GetDSN returns the database connection string
+func (db *DatabaseConfig) GetDSN() string {
+	return fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=%s",
+		db.Host, db.Port, db.User, db.Password, db.DBName, db.SSLMode)
 }

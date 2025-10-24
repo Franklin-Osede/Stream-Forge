@@ -96,15 +96,32 @@ tdd-setup: ## Setup TDD environment
 # Docker targets
 docker-up: ## Start Docker services for development
 	@echo "Starting Docker services..."
-	docker-compose up -d jaeger prometheus kafka
+	docker-compose -f docker-compose.dev.yml up -d postgres jaeger prometheus kafka
 
 docker-down: ## Stop Docker services
 	@echo "Stopping Docker services..."
-	docker-compose down
+	docker-compose -f docker-compose.dev.yml down
 
 docker-logs: ## Show Docker logs
 	@echo "Showing Docker logs..."
-	docker-compose logs -f
+	docker-compose -f docker-compose.dev.yml logs -f
+
+# Database targets
+db-up: ## Start PostgreSQL database
+	@echo "Starting PostgreSQL database..."
+	docker-compose -f docker-compose.dev.yml up -d postgres
+
+db-down: ## Stop PostgreSQL database
+	@echo "Stopping PostgreSQL database..."
+	docker-compose -f docker-compose.dev.yml stop postgres
+
+db-logs: ## Show database logs
+	@echo "Showing database logs..."
+	docker-compose -f docker-compose.dev.yml logs -f postgres
+
+db-connect: ## Connect to PostgreSQL database
+	@echo "Connecting to PostgreSQL database..."
+	docker exec -it tracing-postgres psql -U postgres -d tracing_system
 
 # Health checks
 health: ## Check service health

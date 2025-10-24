@@ -3,7 +3,6 @@ package usecases
 import (
 	"context"
 	"errors"
-	"fmt"
 	"testing"
 	"time"
 
@@ -169,7 +168,7 @@ func TestTraceService_SearchTraces_Success(t *testing.T) {
 
 	ctx := context.Background()
 	criteria := &domain.SearchCriteria{
-		Service: stringPtr("test-service"),
+		Service: (*domain.ServiceName)(stringPtr("test-service")),
 		Limit:   10,
 		Offset:  0,
 	}
